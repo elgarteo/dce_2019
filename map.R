@@ -97,4 +97,4 @@ m %>% addLegend("bottomright", pal = pal, values = by_constituency$ratio, title 
                 labFormat = labelFormat(suffix = '%'), opacity = 0.7) %>%
   addLayersControl(overlayGroups = unique(constituencies$district), 
                    options = layersControlOptions(collapsed = FALSE), position = "bottomleft") %>%
-  saveWidget(., file="dce_2019.html", selfcontained = FALSE)
+  saveWidget(., file="dce_2019.html")
