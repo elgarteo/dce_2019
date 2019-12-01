@@ -53,8 +53,7 @@ by_constituency$popup <- sapply(by_constituency$code, function(x)
          by_constituency$constituency[by_constituency$code == x], "（", x, "）</strong>",
          "<br/>民主派支持者比例：", round(by_constituency$ratio[by_constituency$code == x] * 100, 2), "%",
          "<br/>當選議員：", raw$constituencies$newCouncillor.name[raw$constituencies$officialId == x],
-         "（", raw$constituencies$newCouncillor.camp[raw$constituencies$officialId == x], "）")) %>%
-  lapply(htmltools::HTML)
+         "（", raw$constituencies$newCouncillor.camp[raw$constituencies$officialId == x], "）"))
 
 ##----- Draw map -----
 # create polygon files of each layer
