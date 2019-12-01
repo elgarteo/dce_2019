@@ -1,9 +1,10 @@
-# dce_2019
-Interactive map of proportion of pro-democracy voters in 2019 Hong Kong District Council Election
+# 2019 District Council Election Analysis
+Interactive map of proportion of pro-democracy voters in 2019 Hong Kong District Council Election.
+Preview map [here](https://elgarteo.github.io/dce_2019/dce_2019.html).
 
 ## What it does
-The map shows the proportion of pro-democracy voters in each constituency with varying depth of
-yellow and blue. The more yellowish indicate higher proportion of pro-democracy voters, and vice versa.
+The R script generates a map that shows the proportion of pro-democracy voters in each constituency with
+varying depth of yellow and blue. The more yellowish indicate higher proportion of pro-democracy voters, and vice versa.
 The classification of candidates is based on [the Stands News' election site](https://dce2019.thestandnews.com/).
 
 ## What you need
