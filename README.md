@@ -1,0 +1,20 @@
+# dce_2019
+Interactive map of proportion of pro-democracy voters in 2019 Hong Kong District Council Election
+
+## What it does
+The map shows the proportion of pro-democracy voters in each constituency with varying depth of
+yellow and blue. The more yellowish indicate higher proportion of pro-democracy voters, and vice versa.
+The classification of candidates is based on [the Stands News' election site](https://dce2019.thestandnews.com/).
+
+## What you need
+* [Shapefile](https://accessinfo.hk/en/request/shapefileshp_for_2019_district_c) of the 2019 DCCA
+(kudos to [accessinfo.hk](https://accessinfo.hk))
+* [helixcn/HK80](https://github.com/helixcn/HK80)
+
+The R script automatically fetches the constituency details and election result from the json database file of
+the Stands News' election site.
+
+All other packages are obtainable from CRAN.
+
+## Reference
+The function to implement the shapefile in R is taking reference to [stanyip/DC2015](https://github.com/stanyip/DC2015).
