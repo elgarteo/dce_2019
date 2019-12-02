@@ -22,6 +22,30 @@ for (i in 1:length(dcca2019)) {
 dcca2019 <- SpatialPolygons(sapply(1:length(dcca2019$CACODE),
                                    function(x) Polygons(list(Polygon(dcca_poly[[x]])), dcca2019$CACODE[x])))
 
+# fix overlapping issue of T02, T03 & G25
+for (i in 1:length(dcca2019)) { 
+  if (dcca2019@polygons[[i]]@ID == "T01") t01 <- i
+  if (dcca2019@polygons[[i]]@ID == "T02") t02 <- i
+  if (dcca2019@polygons[[i]]@ID == "T03") t03 <- i
+  if (dcca2019@polygons[[i]]@ID == "G24") g24 <- i
+  if (dcca2019@polygons[[i]]@ID == "G25") g25 <- i
+}
+
+dcca2019@polygons[[t01]] <- Polygons(list(Polygon(cbind(dcca2019@polygons[[t02]]@Polygons[[1]]@coords[, 1], 
+                                                        dcca2019@polygons[[t02]]@Polygons[[1]]@coords[, 2]),
+                                                  hole = TRUE),
+                                          Polygon(cbind(dcca2019@polygons[[t03]]@Polygons[[1]]@coords[, 1], 
+                                                        dcca2019@polygons[[t03]]@Polygons[[1]]@coords[, 2]),
+                                                  hole = TRUE),
+                                          Polygon(cbind(dcca2019@polygons[[t01]]@Polygons[[1]]@coords[, 1],
+                                                        dcca2019@polygons[[t01]]@Polygons[[1]]@coords[, 2]))), "T01")
+
+dcca2019@polygons[[g24]] <- Polygons(list(Polygon(cbind(dcca2019@polygons[[g25]]@Polygons[[1]]@coords[, 1], 
+                                                        dcca2019@polygons[[g25]]@Polygons[[1]]@coords[, 2]),
+                                                  hole = TRUE),
+                                          Polygon(cbind(dcca2019@polygons[[g24]]@Polygons[[1]]@coords[, 1],
+                                                        dcca2019@polygons[[g24]]@Polygons[[1]]@coords[, 2]))), "G24")
+
 ##----- Process data -----
 raw <- fromJSON("https://dce2019.thestandnews.com/data/all.json", flatten = TRUE)
 
@@ -63,13 +87,12 @@ layered_dcca <- lapply(unique(constituencies$district_code), function(x) {
   dcca_poly <- list()
   n <- 1
   for(i in 1:length(dcca2019)) {
-    if(dcca2019@polygons[[i]]@ID %in% by_district) {
-      dcca_poly[[n]] <- data.frame(longitude = dcca2019@polygons[[i]]@Polygons[[1]]@coords[, 1], 
-                                   latitude = dcca2019@polygons[[i]]@Polygons[[1]]@coords[, 2])
+    if (dcca2019@polygons[[i]]@ID %in% by_district) {
+      dcca_poly[[n]] <- dcca2019@polygons[[i]]
       n <- n + 1
     }
   }
-  SpatialPolygons(sapply(1:length(by_district), function(y) Polygons(list(Polygon(dcca_poly[[y]])), by_district[y])))
+  SpatialPolygons(dcca_poly)
 })
 
 m <- leaflet() %>% addTiles() %>% addProviderTiles(providers$CartoDB.Positron)
