@@ -8,11 +8,12 @@ library(colorRamps)
 library(magrittr)
 library(htmlwidgets)
 
-setwd("***INSERT PATH HERE***/dce_2019")
+setwd("./dce_2019")
 
 ##----- Shapefile-----
 dcca2019 <- readOGR("./DCCA2019_Shapefile/")
 
+# convert coordinate system into WGS84 format
 dcca_poly <-  list()
 for (i in 1:length(dcca2019)) {
   dcca_poly[[i]] <-  data.frame(t(apply(dcca2019[i, ]@polygons[[1]]@Polygons[[1]]@coords, 1,
@@ -39,7 +40,7 @@ constituencies <- raw$constituencies %$% data.frame(district_code = district.off
                                                     constituency_code = officialId,
                                                     constiuency = name)
 
-# calculate ratio of each constituency
+# calculate pro-dem vote ratio of each constituency
 by_constituency <- sapply(names(dcca2019), function(x) 
   sum(result %$% votes[code == x & camp == "yellow"]) /
     sum(result %$% votes[code == x])) %>%
@@ -56,7 +57,7 @@ by_constituency$popup <- sapply(by_constituency$code, function(x)
          "（", raw$constituencies$newCouncillor.camp[raw$constituencies$officialId == x], "）"))
 
 ##----- Draw map -----
-# create polygon files of each layer
+# create polygon layers by district
 layered_dcca <- lapply(unique(constituencies$district_code), function(x) {
   by_district <- constituencies %$% constituency_code[district_code == x]
   dcca_poly <- list()
@@ -76,16 +77,14 @@ m <- leaflet() %>% addTiles() %>% addProviderTiles(providers$CartoDB.Positron)
 pal <- colorBin(colorRamps::blue2yellow(10), by_constituency$ratio * 100)
 
 for (x in layered_dcca) {
-  district_results <- by_constituency[by_constituency$code %in% names(x),]
+  district_results <- by_constituency[by_constituency$code %in% names(x), ]
   m %<>% addPolygons(group = constituencies$district[constituencies$constituency_code 
                                                      %in% x@polygons[[1]]@ID],
                      data = x, fillColor = pal(district_results$ratio * 100),
                      label = lapply(district_results$popup, HTML),
-                     labelOptions = labelOptions(
-                       style = list("font-weight" = "normal"),
-                       textsize = "14px"),
-                    fillOpacity = .6,
-                     weight = 3, stroke = TRUE, color = "grey", dashArray = 3,
+                     labelOptions = labelOptions(style = list("font-weight" = "normal"),
+                                                 textsize = "14px"),
+                     fillOpacity = .6, weight = 3, stroke = TRUE, color = "grey", dashArray = 3,
                      highlightOptions = highlightOptions(color = "white",
                                                          weight = 2,
                                                          fillOpacity = 0.8,
@@ -96,4 +95,4 @@ m %>% addLegend("bottomright", pal = pal, values = by_constituency$ratio, title 
                 labFormat = labelFormat(suffix = '%'), opacity = 0.7) %>%
   addLayersControl(overlayGroups = unique(constituencies$district), 
                    options = layersControlOptions(collapsed = FALSE), position = "bottomleft") %>%
-  saveWidget(., file="dce_2019.html")
+  saveWidget(file="dce_2019.html")
