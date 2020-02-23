@@ -1,7 +1,9 @@
 # 2019 District Council Election Result Map
 Interactive map of proportion of pro-democracy voters in 2019 Hong Kong District Council Election
 
-Preview map [here](https://elgarteo.github.io/dce_2019/dce_2019.html)
+2019區議會選舉結果黃藍選民分佈圖
+
+View map [here](https://elgarteo.github.io/dce_2019/dce_2019.html)
 
 ## What it does
 The R script generates a map that shows the proportion of pro-democracy voters in each constituency with
@@ -17,6 +19,3 @@ The R script automatically fetches the constituency details and election result 
 the Stands News' election site.
 
 All other packages are obtainable from CRAN.
-
-## Reference
-The function to implement the shapefile in R is taking reference to [stanyip/DC2015](https://github.com/stanyip/DC2015).
