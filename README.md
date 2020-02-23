@@ -1,7 +1,7 @@
-# 2019 District Council Election Result Map
+# 2019 District Council Election Map 
 Interactive map of proportion of pro-democracy voters in 2019 Hong Kong District Council Election
 
-2019區議會選舉結果黃藍選民分佈圖
+2019年區議會選舉結果黃藍選民分佈圖
 
 View map [here](https://elgarteo.github.io/dce_2019/dce_2019.html)
 
