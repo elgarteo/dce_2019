@@ -19,3 +19,6 @@ The R script automatically fetches the constituency details and election result 
 the Stands News' election site.
 
 All other packages are obtainable from CRAN.
+
+## References
+The function to implement the shapefile in R is taking reference to [stanyip/DC2015](https://github.com/stanyip/DC2015).
