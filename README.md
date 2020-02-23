@@ -8,7 +8,6 @@ View map [here](https://elgarteo.github.io/dce_2019/dce_2019.html)
 ## What it does
 The R script generates a map that shows the proportion of pro-democracy voters in each constituency with
 varying depth of yellow and blue. The more yellowish indicate higher proportion of pro-democracy voters, and vice versa.
-The classification of candidates is based on [the Stands News' election site](https://dce2019.thestandnews.com/).
 
 ## What you need
 * [Shapefile](https://accessinfo.hk/en/request/shapefileshp_for_2019_district_c) of the 2019 DCCA
@@ -22,3 +21,5 @@ All other packages are obtainable from CRAN.
 
 ## References
 The function to implement the shapefile in R is taking reference to [stanyip/DC2015](https://github.com/stanyip/DC2015).
+
+The political classification of candidates is based on the Stands News' [election site](https://dce2019.thestandnews.com/).
