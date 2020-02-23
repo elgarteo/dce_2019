@@ -97,7 +97,7 @@ layered_dcca <- lapply(unique(constituencies$district_code), function(x) {
 
 m <- leaflet() %>% addTiles() %>% addProviderTiles(providers$CartoDB.Positron)
 
-pal <- colorBin(colorRamps::blue2yellow(10), by_constituency$ratio * 100)
+pal <- colorBin(blue2yellow(10), by_constituency$ratio * 100)
 
 for (x in layered_dcca) {
   district_results <- by_constituency[by_constituency$code %in% names(x), ]
