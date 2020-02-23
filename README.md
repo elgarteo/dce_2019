@@ -20,6 +20,6 @@ the Stands News' election site.
 All other packages are obtainable from CRAN.
 
 ## References
-The function to implement the shapefile in R is taking reference to [stanyip/DC2015](https://github.com/stanyip/DC2015).
-
 The political classification of candidates is based on the Stands News' [election site](https://dce2019.thestandnews.com/).
+
+The function to implement the shapefile in R is taking reference to [stanyip/DC2015](https://github.com/stanyip/DC2015).
